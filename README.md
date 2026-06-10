@@ -255,6 +255,13 @@ Components never hardcode colors — they use Tailwind classes that resolve to t
 
 ---
 
+## 🔄 GitHub Sync
+
+This project is connected to [Sadiq-Md/Edu_Core](https://github.com/Sadiq-Md/Edu_Core) via Lovable's two-way GitHub integration.
+
+---
+
 ## 📄 License
 
 MIT — © 2026 Sadiq.
+
