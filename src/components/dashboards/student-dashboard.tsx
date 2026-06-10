@@ -20,6 +20,7 @@ import { StatCard } from "@/components/stat-card";
 import { attendanceTrend, notifications, studentPerformance } from "@/lib/mock-data";
 import { useAuth } from "@/lib/auth";
 import { useAttendance, useMarks, attendanceRateFor, avgScoreFor, STUDENT_DEMO_ID } from "@/lib/store";
+import roleStudent from "@/assets/role-student.jpg";
 
 export function StudentDashboard() {
   const { user } = useAuth();
@@ -31,10 +32,14 @@ export function StudentDashboard() {
   const avg = avgScoreFor(marks, sid);
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Student portal</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Welcome back, {user?.name.split(" ")[0]} 👋</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Here's how your semester is going.</p>
+      <div className="relative overflow-hidden rounded-2xl border border-border/60 shadow-elegant">
+        <img src={roleStudent} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/20" />
+        <div className="relative p-6 sm:p-8">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Student portal</p>
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Welcome back, {user?.name.split(" ")[0]} 👋</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Here's how your semester is going.</p>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
