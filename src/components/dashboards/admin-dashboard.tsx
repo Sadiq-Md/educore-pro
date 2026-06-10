@@ -1,4 +1,4 @@
-import { GraduationCap, Users, BookOpen, Wallet, TrendingUp, Activity } from "lucide-react";
+import { GraduationCap, BookOpen, Wallet, TrendingUp, Activity, ClipboardCheck } from "lucide-react";
 import {
   Area,
   AreaChart,
@@ -28,10 +28,15 @@ import {
   feeCollection,
   students,
 } from "@/lib/mock-data";
+import { useAttendance, useMarks, overallAttendanceRate, avgScoreFor } from "@/lib/store";
 
 const palette = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)", "var(--primary)"];
 
 export function AdminDashboard() {
+  const { records: att } = useAttendance();
+  const { records: marks } = useMarks();
+  const liveAtt = overallAttendanceRate(att);
+  const liveAvg = avgScoreFor(marks);
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -48,8 +53,8 @@ export function AdminDashboard() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Total Students" value={stats.totalStudents.toLocaleString()} delta="+8.4% MoM" icon={GraduationCap} />
-        <StatCard label="Faculty & Staff" value={stats.totalStaff.toString()} delta="+1.2%" icon={Users} />
-        <StatCard label="Active Courses" value={stats.totalCourses.toString()} delta="+6 new" icon={BookOpen} />
+        <StatCard label="Live Attendance" value={liveAtt !== null ? `${liveAtt}%` : `${stats.attendanceRate}%`} delta={`${att.length} records`} icon={ClipboardCheck} />
+        <StatCard label="Avg. Grade" value={liveAvg !== null ? `${liveAvg}%` : "—"} delta={`${marks.length} marks`} icon={BookOpen} />
         <StatCard label="Fees Collected" value={`$${(stats.feesCollected / 1e6).toFixed(2)}M`} delta="+12.1%" icon={Wallet} />
       </div>
 

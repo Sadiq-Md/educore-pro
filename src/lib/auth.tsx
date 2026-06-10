@@ -16,7 +16,7 @@ const DEMO_USERS: Record<string, { password: string; user: User }> = {
     password: "admin123",
     user: {
       id: "u-admin",
-      name: "Dr. Sarah Chen",
+      name: "Sadiq",
       email: "admin@educore.io",
       role: "admin",
       department: "Administration",

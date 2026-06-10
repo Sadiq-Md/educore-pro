@@ -17,11 +17,18 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { StatCard } from "@/components/stat-card";
-import { attendanceTrend, notifications, studentMarks, studentPerformance } from "@/lib/mock-data";
+import { attendanceTrend, notifications, studentPerformance } from "@/lib/mock-data";
 import { useAuth } from "@/lib/auth";
+import { useAttendance, useMarks, attendanceRateFor, avgScoreFor, STUDENT_DEMO_ID } from "@/lib/store";
 
 export function StudentDashboard() {
   const { user } = useAuth();
+  const { records: att } = useAttendance();
+  const { records: marks } = useMarks();
+  const sid = STUDENT_DEMO_ID;
+  const myMarks = marks.filter((m) => m.studentId === sid).slice().sort((a, b) => b.updatedAt - a.updatedAt);
+  const attRate = attendanceRateFor(att, sid);
+  const avg = avgScoreFor(marks, sid);
   return (
     <div className="space-y-6">
       <div>
@@ -31,8 +38,8 @@ export function StudentDashboard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Current GPA" value="3.86" delta="+0.12" icon={GraduationCap} />
-        <StatCard label="Attendance" value="94%" delta="+1.2%" icon={ClipboardCheck} />
+        <StatCard label="Avg. Score" value={avg !== null ? `${avg}%` : "—"} delta={`${myMarks.length} graded`} icon={GraduationCap} />
+        <StatCard label="Attendance" value={attRate !== null ? `${attRate}%` : "—"} delta={`${att.filter((r) => r.studentId === sid).length} sessions`} icon={ClipboardCheck} />
         <StatCard label="Class Rank" value="#12 / 248" delta="↑ 4" icon={Trophy} />
         <StatCard label="Pending Tasks" value="3" delta="2 due this week" trend="down" icon={Bell} />
       </div>
@@ -89,8 +96,9 @@ export function StudentDashboard() {
             <CardDescription>Latest assignments & exams</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            {studentMarks.map((m) => (
-              <div key={m.course + m.assignment} className="rounded-lg border border-border/60 p-3">
+            {myMarks.length === 0 && <div className="text-sm text-muted-foreground">No marks yet.</div>}
+            {myMarks.slice(0, 6).map((m) => (
+              <div key={m.id} className="rounded-lg border border-border/60 p-3">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm font-medium">{m.assignment}</div>
