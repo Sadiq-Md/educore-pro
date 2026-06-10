@@ -29,6 +29,7 @@ import {
   students,
 } from "@/lib/mock-data";
 import { useAttendance, useMarks, overallAttendanceRate, avgScoreFor } from "@/lib/store";
+import campusHero from "@/assets/campus-hero.jpg";
 
 const palette = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)", "var(--primary)"];
 
@@ -39,15 +40,19 @@ export function AdminDashboard() {
   const liveAvg = avgScoreFor(marks);
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Admin · Fall 2026</p>
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Institutional Overview</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Live snapshot of enrollment, performance and operations.</p>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">Export report</Button>
-          <Button size="sm" className="shadow-glow" style={{ background: "var(--gradient-primary)" }}>+ New term</Button>
+      <div className="relative overflow-hidden rounded-2xl border border-border/60 shadow-elegant">
+        <img src={campusHero} alt="Campus at golden hour" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/30" />
+        <div className="relative flex flex-wrap items-end justify-between gap-3 p-6 sm:p-8">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Admin · Fall 2026</p>
+            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Institutional Overview</h1>
+            <p className="mt-1 max-w-md text-sm text-muted-foreground">Live snapshot of enrollment, performance and operations across campus.</p>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm">Export report</Button>
+            <Button size="sm" className="shadow-glow" style={{ background: "var(--gradient-primary)" }}>+ New term</Button>
+          </div>
         </div>
       </div>
 

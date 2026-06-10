@@ -8,16 +8,21 @@ import { StatCard } from "@/components/stat-card";
 import { courses, studentPerformance } from "@/lib/mock-data";
 import { useAuth } from "@/lib/auth";
 import { Link } from "@tanstack/react-router";
+import roleStaff from "@/assets/role-staff.jpg";
 
 export function StaffDashboard() {
   const { user } = useAuth();
   const myCourses = courses.slice(0, 3);
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Staff portal</p>
-        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Good to see you, {user?.name.split(" ").slice(-1)[0]}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Your classes, attendance, and grading at a glance.</p>
+      <div className="relative overflow-hidden rounded-2xl border border-border/60 shadow-elegant">
+        <img src={roleStaff} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/20" />
+        <div className="relative p-6 sm:p-8">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Staff portal</p>
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Good to see you, {user?.name.split(" ").slice(-1)[0]}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Your classes, attendance, and grading at a glance.</p>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
