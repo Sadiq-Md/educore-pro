@@ -1,4 +1,4 @@
-import { GraduationCap, Users, BookOpen, Wallet, TrendingUp, Activity } from "lucide-react";
+import { GraduationCap, BookOpen, Wallet, TrendingUp, Activity, ClipboardCheck } from "lucide-react";
 import {
   Area,
   AreaChart,
